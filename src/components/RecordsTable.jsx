@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { PlusCircle, Pencil } from 'react-bootstrap-icons';
+
 const RecordsTable = ({ records, onAddObservation, onEditRecord }) => {
   return (
-    <table>
-      <thead>
+    <table className="table table-striped table-bordered">
+      <thead className="table-dark">
         <tr>
           <th>ID</th>
           <th>Usuario</th>
@@ -23,8 +25,8 @@ const RecordsTable = ({ records, onAddObservation, onEditRecord }) => {
             <td>{record.observations}</td>
             {(onAddObservation || onEditRecord) && (
               <td>
-                {onAddObservation && <button onClick={() => onAddObservation(record.id)}>Agregar Observación</button>}
-                {onEditRecord && <button onClick={() => onEditRecord(record.id, record.timestamp)}>Editar</button>}
+                {onAddObservation && <button className="btn btn-sm btn-info me-2" onClick={() => onAddObservation(record.id)}><PlusCircle className="me-1"/> Agregar Observación</button>}
+                {onEditRecord && <button className="btn btn-sm btn-warning" onClick={() => onEditRecord(record.id, record.timestamp)}><Pencil className="me-1"/> Editar</button>}
               </td>
             )}
           </tr>

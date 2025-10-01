@@ -10,6 +10,8 @@ import WorkerDashboard from './pages/WorkerDashboard';
 
 // Instalar react-router-dom: npm install react-router-dom
 
+import { ToastContainer } from 'react-toastify';
+
 const App = () => {
   const [user, setUser] = useState(getUser());
 
@@ -33,6 +35,7 @@ const App = () => {
           <Route path="/worker" element={user && user.role === 'worker' ? <WorkerDashboard /> : <Navigate to="/login" />} />
         </Routes>
       </main>
+      <ToastContainer />
     </Router>
   );
 };

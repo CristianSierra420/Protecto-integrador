@@ -1,6 +1,13 @@
 import request from './api';
 import { jwtDecode } from 'jwt-decode';
 
+export const registerUser = async (username, cedula) => {
+  return await request('/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({ username, cedula }),
+  });
+};
+
 const TOKEN_KEY = 'token';
 
 export const login = async (username, cedula) => {
@@ -31,4 +38,10 @@ export const getUser = () => {
 export const isAdmin = () => {
   const user = getUser();
   return user && user.role === 'admin';
+};
+
+export const getAllUsers = async () => {
+  return await request('/users', {
+    method: 'GET',
+  });
 };

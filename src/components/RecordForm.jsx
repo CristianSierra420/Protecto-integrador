@@ -2,6 +2,10 @@ import React from 'react';
 import { addRecord } from '../services/recordService';
 import { getUser } from '../services/authService';
 
+import { BoxArrowInRight, BoxArrowRight } from 'react-bootstrap-icons';
+
+import { toast } from 'react-toastify';
+
 const RecordForm = ({ onRecordAdded }) => {
   const user = getUser();
 
@@ -10,21 +14,29 @@ const RecordForm = ({ onRecordAdded }) => {
       const response = await addRecord(user.cedula, type);
       onRecordAdded(response.newRecord);
       if (response.tardinessMinutes > 0) {
-        alert(`⚠️ Llegaste ${response.tardinessMinutes} minutos tarde.`);
+        toast.warn(`Llegaste ${response.tardinessMinutes} minutos tarde.`);
       } else {
-        alert('✅ Registro exitoso.');
+        toast.success('Registro exitoso.');
       }
     } catch (err) {
-      alert(`Error: ${err.message}`);
+      toast.error(`Error: ${err.message}`);
     }
   };
 
   return (
-    <div>
-      <h2>Registrar Asistencia</h2>
-      <p>Bienvenido, {user.username}.</p>
-      <button onClick={() => handleRecord('entry')}>Registrar Entrada</button>
-      <button onClick={() => handleRecord('exit')}>Registrar Salida</button>
+    <div className="card p-3 mb-4">
+      <h2 className="text-center mb-3">Registrar Asistencia</h2>
+      <p className="text-center">Bienvenido, <strong>{user.username}</strong>.</p>
+      <div className="d-grid gap-2">
+        <button className="btn btn-success btn-lg" onClick={() => handleRecord('entry')}>
+          <BoxArrowInRight className="me-2"/>
+          Registrar Entrada
+        </button>
+        <button className="btn btn-danger btn-lg" onClick={() => handleRecord('exit')}>
+          <BoxArrowRight className="me-2"/>
+          Registrar Salida
+        </button>
+      </div>
     </div>
   );
 };

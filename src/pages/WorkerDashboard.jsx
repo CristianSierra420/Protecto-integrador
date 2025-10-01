@@ -24,11 +24,11 @@ const WorkerDashboard = () => {
   };
 
   return (
-    <div>
-      <h1>Panel de Trabajador</h1>
+    <div className="container mt-4">
+      <h1 className="mb-4">Panel de Trabajador</h1>
       <RecordForm onRecordAdded={handleRecordAdded} />
-      <hr />
-      <h2>Mis Registros</h2>
+      <hr className="my-4" />
+      <h2 className="mb-3">Mis Registros</h2>
       <RecordsTable records={records} />
     </div>
   );
