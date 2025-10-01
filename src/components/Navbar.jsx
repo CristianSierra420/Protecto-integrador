@@ -17,7 +17,7 @@ const Navbar = ({ onLogout }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black">
       <div className="container-fluid">
-        <Link className="navbar-brand text-primary fw-bold" to="/">Time Tracking</Link>
+        <Link className="navbar-brand text-primary fw-bold" to="/">InnovaPro</Link>
         <div className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             {user ? (
