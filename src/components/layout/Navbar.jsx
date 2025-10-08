@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUser, logout } from '../../services/auth.service';
-import { JwtPayload as BaseJwtPayload } from 'jwt-decode';
 
 import { BoxArrowInRight, BoxArrowRight } from 'react-bootstrap-icons';
 
-const Navbar = ({ onLogout }: { onLogout: () => void }) => {
+const Navbar = ({ onLogout }) => {
   const user = getUser();
   const navigate = useNavigate();
 

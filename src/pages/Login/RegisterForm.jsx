@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-
 import { Person, PersonVcard } from 'react-bootstrap-icons';
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [cedula, setCedula] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted with:', { username, cedula });
-    // The backend call has been removed.
-    // We'll just clear the form for now.
+    // Aquí podrías agregar la llamada al backend o API
+    // Por ahora solo limpia los campos
     setUsername('');
     setCedula('');
   };
@@ -20,8 +19,11 @@ const RegisterForm = () => {
       <div className="card p-4">
         <form onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Registrar Nuevo Usuario</h2>
+
           <div className="input-group mb-3">
-            <span className="input-group-text"><Person /></span>
+            <span className="input-group-text">
+              <Person />
+            </span>
             <input
               type="text"
               className="form-control"
@@ -32,8 +34,11 @@ const RegisterForm = () => {
               required
             />
           </div>
+
           <div className="input-group mb-3">
-            <span className="input-group-text"><PersonVcard /></span>
+            <span className="input-group-text">
+              <PersonVcard />
+            </span>
             <input
               type="text"
               className="form-control"
@@ -44,7 +49,10 @@ const RegisterForm = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Registrar</button>
+
+          <button type="submit" className="btn btn-primary w-100">
+            Registrar
+          </button>
         </form>
       </div>
     </div>

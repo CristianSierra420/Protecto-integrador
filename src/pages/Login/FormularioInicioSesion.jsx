@@ -11,25 +11,23 @@ const FormularioInicioSesion = () => {
     const [cargando, setCargando] = useState(false);
     const [exito, setExito] = useState(false);
 
-    type Validacion = { esValido: boolean; mensaje: string };
-
-    const validarCorreo = (correo: string): Validacion => {
+    const validarCorreo = (correo) => {
         if (!correo) return { esValido: false, mensaje: 'El correo es requerido' };
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(correo)) return { esValido: false, mensaje: 'Formato de correo inválido' };
         return { esValido: true, mensaje: '' };
     };
 
-    const validarContrasena = (contrasena: string): Validacion => {
+    const validarContrasena = (contrasena) => {
         if (!contrasena) return { esValido: false, mensaje: 'La contraseña es requerida' };
         if (contrasena.length < 8) return { esValido: false, mensaje: 'La contraseña debe tener al menos 8 caracteres' };
         return { esValido: true, mensaje: '' };
     };
 
-    const handleValidarCampo = (nombreCampo: 'correo' | 'contrasena'): boolean => {
-        const valor: string = nombreCampo === 'correo' ? correo : contrasena;
-        const validador: (v: string) => Validacion = nombreCampo === 'correo' ? validarCorreo : validarContrasena;
-        const setError: React.Dispatch<React.SetStateAction<string>> = nombreCampo === 'correo' ? setErrorCorreo : setErrorContrasena;
+    const handleValidarCampo = (nombreCampo) => {
+        const valor = nombreCampo === 'correo' ? correo : contrasena;
+        const validador = nombreCampo === 'correo' ? validarCorreo : validarContrasena;
+        const setError = nombreCampo === 'correo' ? setErrorCorreo : setErrorContrasena;
 
         const validacion = validador(valor);
         if (!validacion.esValido) {
@@ -40,7 +38,7 @@ const FormularioInicioSesion = () => {
         return true;
     };
 
-    const handleEnviar = async (e: React.FormEvent) => {
+    const handleEnviar = async (e) => {
         e.preventDefault();
 
         const esCorreoValido = handleValidarCampo('correo');
@@ -52,13 +50,11 @@ const FormularioInicioSesion = () => {
 
         setCargando(true);
 
-        // Simular llamada a la API
         try {
+            // Simulación de llamada API
             await new Promise(resolve => setTimeout(resolve, 1500));
-            // Asumiendo que el inicio de sesión es exitoso
             setExito(true);
         } catch (error) {
-            // Manejar error de inicio de sesión
             setErrorContrasena('Credenciales inválidas');
         } finally {
             setCargando(false);
@@ -67,10 +63,9 @@ const FormularioInicioSesion = () => {
 
     useEffect(() => {
         if (exito) {
-            // Ocultar el formulario y mostrar el mensaje de éxito
             const timer = setTimeout(() => {
-                // Puedes agregar una redirección aquí, ej: usando react-router-dom
                 console.log("Redirigiendo al panel de control...");
+                // Aquí puedes redirigir con react-router-dom si quieres
             }, 2000);
             return () => clearTimeout(timer);
         }

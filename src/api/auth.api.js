@@ -1,10 +1,10 @@
 const API_URL = 'http://localhost:3001';
 
-const getAuthToken = (): string | null => {
+const getAuthToken = () => {
   return localStorage.getItem('token');
 };
 
-const request = async (endpoint: string, options: RequestInit = {}): Promise<any> => {
+const request = async (endpoint, options = {}) => {
   const url = `${API_URL}${endpoint}`;
   const token = getAuthToken();
 
@@ -17,7 +17,7 @@ const request = async (endpoint: string, options: RequestInit = {}): Promise<any
     headers.set('Authorization', `Bearer ${token}`);
   }
 
-  const config: RequestInit = {
+  const config = {
     ...options,
     headers,
   };
@@ -25,7 +25,7 @@ const request = async (endpoint: string, options: RequestInit = {}): Promise<any
   const response = await fetch(url, config);
 
   if (!response.ok) {
-    const error: { message?: string } = await response.json();
+    const error = await response.json();
     throw new Error(error.message || 'Something went wrong');
   }
 

@@ -1,7 +1,7 @@
 import request from '../api/auth.api';
 
-export const exportToPDF = async (from: string, to: string): Promise<void> => {
-  const blob: Blob = await request(`/reports/pdf?from=${from}&to=${to}`);
+export const exportToPDF = async (from, to) => {
+  const blob = await request(`/reports/pdf?from=${from}&to=${to}`);
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;

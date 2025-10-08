@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-interface EditRecordModalProps {
-  show: boolean;
-  onHide: () => void;
-  onSave: (timestamp: string) => void;
-  currentTimestamp: string | null;
-}
-const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }: EditRecordModalProps) => {
+const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }) => {
   const [timestamp, setTimestamp] = useState('');
 
   useEffect(() => {
@@ -30,8 +24,8 @@ const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }: EditRecordM
         <Form>
           <Form.Group controlId="timestamp">
             <Form.Label>Nueva Fecha y Hora</Form.Label>
-            <Form.Control 
-              type="datetime-local" 
+            <Form.Control
+              type="datetime-local"
               value={timestamp}
               onChange={(e) => setTimestamp(e.target.value)}
             />

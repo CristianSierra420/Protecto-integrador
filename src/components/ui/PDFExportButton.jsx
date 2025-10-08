@@ -1,9 +1,8 @@
 import React from 'react';
 import { FileEarmarkPdf } from 'react-bootstrap-icons';
-
 import { toast } from 'react-toastify';
 
-const exportToPDF = async (from: string, to: string): Promise<void> => {
+const exportToPDF = async (from, to) => {
   const content = `Report from ${from} to ${to}`;
   const blob = new Blob([content], { type: 'application/pdf' });
   const url = URL.createObjectURL(blob);
@@ -16,18 +15,19 @@ const exportToPDF = async (from: string, to: string): Promise<void> => {
   URL.revokeObjectURL(url);
 };
 
-const PDFExportButton = ({ from, to }: { from: string; to: string }) => {
+const PDFExportButton = ({ from, to }) => {
   const handleExport = async () => {
     try {
       await exportToPDF(from, to);
-    } catch (err: any) {
-      toast.error(`Error: ${err.message}`);
+      toast.success('PDF exportado exitosamente');
+    } catch (err) {
+      toast.error(`Error: ${err.message || err}`);
     }
   };
 
   return (
     <button className="btn btn-secondary" onClick={handleExport} disabled={!from || !to}>
-      <FileEarmarkPdf className="me-2"/>
+      <FileEarmarkPdf className="me-2" />
       Exportar a PDF
     </button>
   );

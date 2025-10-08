@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-interface ObservationModalProps {
- show: boolean;
- onHide: () => void;
- onSave: (observation: string) => void;
-}
-const ObservationModal = ({ show, onHide, onSave }: ObservationModalProps) => {
+const ObservationModal = ({ show, onHide, onSave }) => {
   const [observation, setObservation] = useState('');
 
   const handleSave = () => {
@@ -24,9 +19,9 @@ const ObservationModal = ({ show, onHide, onSave }: ObservationModalProps) => {
         <Form>
           <Form.Group controlId="observation">
             <Form.Label>Observación</Form.Label>
-            <Form.Control 
-              as="textarea" 
-              rows={3} 
+            <Form.Control
+              as="textarea"
+              rows={3}
               value={observation}
               onChange={(e) => setObservation(e.target.value)}
             />
