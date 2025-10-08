@@ -27,7 +27,7 @@ const Navbar = ({ onLogout }: { onLogout: () => void }) => {
               <>
                 <li className="nav-item">
                   <span className="navbar-text me-3">
-                    Bienvenido, {user.sub}
+                    Bienvenido, {user.name}
                   </span>
                 </li>
                 <li className="nav-item">

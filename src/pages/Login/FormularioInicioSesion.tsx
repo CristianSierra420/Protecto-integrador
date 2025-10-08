@@ -11,23 +11,25 @@ const FormularioInicioSesion = () => {
     const [cargando, setCargando] = useState(false);
     const [exito, setExito] = useState(false);
 
-    const validarCorreo = (correo) => {
+    type Validacion = { esValido: boolean; mensaje: string };
+
+    const validarCorreo = (correo: string): Validacion => {
         if (!correo) return { esValido: false, mensaje: 'El correo es requerido' };
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(correo)) return { esValido: false, mensaje: 'Formato de correo inválido' };
-        return { esValido: true };
+        return { esValido: true, mensaje: '' };
     };
 
-    const validarContrasena = (contrasena) => {
+    const validarContrasena = (contrasena: string): Validacion => {
         if (!contrasena) return { esValido: false, mensaje: 'La contraseña es requerida' };
         if (contrasena.length < 8) return { esValido: false, mensaje: 'La contraseña debe tener al menos 8 caracteres' };
-        return { esValido: true };
+        return { esValido: true, mensaje: '' };
     };
 
-    const handleValidarCampo = (nombreCampo) => {
-        const valor = nombreCampo === 'correo' ? correo : contrasena;
-        const validador = nombreCampo === 'correo' ? validarCorreo : validarContrasena;
-        const setError = nombreCampo === 'correo' ? setErrorCorreo : setErrorContrasena;
+    const handleValidarCampo = (nombreCampo: 'correo' | 'contrasena'): boolean => {
+        const valor: string = nombreCampo === 'correo' ? correo : contrasena;
+        const validador: (v: string) => Validacion = nombreCampo === 'correo' ? validarCorreo : validarContrasena;
+        const setError: React.Dispatch<React.SetStateAction<string>> = nombreCampo === 'correo' ? setErrorCorreo : setErrorContrasena;
 
         const validacion = validador(valor);
         if (!validacion.esValido) {
@@ -38,7 +40,7 @@ const FormularioInicioSesion = () => {
         return true;
     };
 
-    const handleEnviar = async (e) => {
+    const handleEnviar = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const esCorreoValido = handleValidarCampo('correo');

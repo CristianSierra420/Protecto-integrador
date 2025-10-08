@@ -1,23 +1,23 @@
 const API_URL = 'http://localhost:3001';
 
-const getAuthToken = () => {
+const getAuthToken = (): string | null => {
   return localStorage.getItem('token');
 };
 
-const request = async (endpoint, options = {}) => {
+const request = async (endpoint: string, options: RequestInit = {}): Promise<any> => {
   const url = `${API_URL}${endpoint}`;
   const token = getAuthToken();
 
-  const headers = {
-    'Content-Type': 'application/json',
-    ...options.headers,
-  };
-
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+  const headers = new Headers(options.headers);
+  if (!headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
   }
 
-  const config = {
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
+  const config: RequestInit = {
     ...options,
     headers,
   };
@@ -25,7 +25,7 @@ const request = async (endpoint, options = {}) => {
   const response = await fetch(url, config);
 
   if (!response.ok) {
-    const error = await response.json();
+    const error: { message?: string } = await response.json();
     throw new Error(error.message || 'Something went wrong');
   }
 

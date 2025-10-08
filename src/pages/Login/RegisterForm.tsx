@@ -6,7 +6,7 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [cedula, setCedula] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted with:', { username, cedula });
     // The backend call has been removed.

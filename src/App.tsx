@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { getUser } from './services/authService';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import FormularioInicioSesion from './components/FormularioInicioSesion';
-import RegisterForm from './components/RegisterForm';
-import AdminDashboard from './pages/AdminDashboard';
-import WorkerDashboard from './pages/WorkerDashboard';
+import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import Navbar from './components/layout/Navbar';
+import { getUser } from './services/auth.service';
+import FormularioInicioSesion from './pages/Login/FormularioInicioSesion';
+import RegisterForm from './pages/Login/RegisterForm';
 
-// Instalar react-router-dom: npm install react-router-dom
+const AdminDashboard: React.FC = () => {
+  return <div>Admin Dashboard</div>;
+};
+
+const WorkerDashboard: React.FC = () => {
+  return <div>Worker Dashboard</div>;
+};
 
 import { ToastContainer } from 'react-toastify';
 
-const App = () => {
-  const [user, setUser] = useState(getUser());
+type JwtPayload = { role: string; sub: string; iat: number; exp: number; };
 
-  const handleLogin = (loggedInUser) => {
+const App = () => {
+  const [user, setUser] = useState<JwtPayload | null>(getUser() as JwtPayload | null);
+
+  const handleLogin = (loggedInUser: any) => {
     setUser(loggedInUser);
   };
 
@@ -29,7 +34,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/home" element={<Home />} />
+          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/login" element={<FormularioInicioSesion />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={user && user.role === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />

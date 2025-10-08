@@ -14,34 +14,36 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    const validateEmail = (email) => {
+    type ValidationResult = { isValid: boolean; message?: string };
+
+    const validateEmail = (email: string): ValidationResult => {
         if (!email) return { isValid: false, message: 'Email is required' };
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(email)) return { isValid: false, message: 'Invalid email format' };
         return { isValid: true };
     };
 
-    const validatePassword = (password) => {
+    const validatePassword = (password: string): ValidationResult => {
         if (!password) return { isValid: false, message: 'Password is required' };
         if (password.length < 8) return { isValid: false, message: 'Password must be at least 8 characters' };
         return { isValid: true };
     };
 
-    const handleValidateField = (fieldName) => {
+    const handleValidateField = (fieldName: 'email' | 'password'): boolean => {
         const value = fieldName === 'email' ? email : password;
         const validator = fieldName === 'email' ? validateEmail : validatePassword;
         const errorSetter = fieldName === 'email' ? setEmailError : setPasswordError;
 
         const validation = validator(value);
         if (!validation.isValid) {
-            errorSetter(validation.message);
+            errorSetter(validation.message ?? '');
             return false;
         }
         errorSetter('');
         return true;
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const isEmailValid = handleValidateField('email');

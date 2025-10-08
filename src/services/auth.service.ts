@@ -1,7 +1,12 @@
-import request from './api';
+import request from '../api/auth.api';
 import { jwtDecode } from 'jwt-decode';
 
-export const registerUser = async (username, cedula) => {
+interface CustomJwtPayload {
+  role?: string;
+  name?: string;
+}
+
+export const registerUser = async (username: string, cedula: string) => {
   return await request('/auth/register', {
     method: 'POST',
     body: JSON.stringify({ username, cedula }),
@@ -10,7 +15,7 @@ export const registerUser = async (username, cedula) => {
 
 const TOKEN_KEY = 'token';
 
-export const login = async (username, cedula) => {
+export const login = async (username: string, cedula: string) => {
   const { token } = await request('/auth/login', {
     method: 'POST',
     body: JSON.stringify({ username, cedula }),
@@ -28,7 +33,7 @@ export const getUser = () => {
   if (!token) return null;
 
   try {
-    const decoded = jwtDecode(token);
+    const decoded = jwtDecode<CustomJwtPayload>(token);
     return decoded;
   } catch (e) {
     return null;
