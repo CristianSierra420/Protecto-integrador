@@ -1,15 +1,26 @@
 import React from 'react';
-import { exportToPDF } from '../services/pdfService';
-
 import { FileEarmarkPdf } from 'react-bootstrap-icons';
 
 import { toast } from 'react-toastify';
 
-const PDFExportButton = ({ from, to }) => {
+const exportToPDF = async (from: string, to: string): Promise<void> => {
+  const content = `Report from ${from} to ${to}`;
+  const blob = new Blob([content], { type: 'application/pdf' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `report_${from}_${to}.pdf`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+};
+
+const PDFExportButton = ({ from, to }: { from: string; to: string }) => {
   const handleExport = async () => {
     try {
       await exportToPDF(from, to);
-    } catch (err) {
+    } catch (err: any) {
       toast.error(`Error: ${err.message}`);
     }
   };

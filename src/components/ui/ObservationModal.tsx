@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const ObservationModal = ({ show, onHide, onSave }) => {
+interface ObservationModalProps {
+ show: boolean;
+ onHide: () => void;
+ onSave: (observation: string) => void;
+}
+const ObservationModal = ({ show, onHide, onSave }: ObservationModalProps) => {
   const [observation, setObservation] = useState('');
 
   const handleSave = () => {

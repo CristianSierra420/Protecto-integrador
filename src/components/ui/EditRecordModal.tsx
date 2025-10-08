@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }) => {
+interface EditRecordModalProps {
+  show: boolean;
+  onHide: () => void;
+  onSave: (timestamp: string) => void;
+  currentTimestamp: string | null;
+}
+const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }: EditRecordModalProps) => {
   const [timestamp, setTimestamp] = useState('');
 
   useEffect(() => {
