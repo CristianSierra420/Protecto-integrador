@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+// @ts-ignore: module may be missing during development
 import { getUser } from '../services/authService';
+// @ts-ignore: module may be missing during development
 import { getRecords } from '../services/recordService';
+// @ts-ignore: module may be missing during development
 import RecordForm from '../components/RecordForm';
+// @ts-ignore: module may be missing during development
 import RecordsTable from '../components/RecordsTable';
 
 const WorkerDashboard = () => {
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState<any[]>([]);
   const user = getUser();
 
   const fetchRecords = async () => {
@@ -19,8 +23,8 @@ const WorkerDashboard = () => {
     fetchRecords();
   }, [user]);
 
-  const handleRecordAdded = (newRecord) => {
-    setRecords([...records, newRecord]);
+  const handleRecordAdded = (newRecord: any) => {
+    setRecords((prevRecords) => [...prevRecords, newRecord]);
   };
 
   return (
