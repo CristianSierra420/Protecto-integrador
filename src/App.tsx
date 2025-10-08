@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { getUser } from './services/authService';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import LoginForm from './components/LoginForm';
+import FormularioInicioSesion from './components/FormularioInicioSesion';
 import RegisterForm from './components/RegisterForm';
 import AdminDashboard from './pages/AdminDashboard';
 import WorkerDashboard from './pages/WorkerDashboard';
@@ -30,7 +30,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/login" element={<FormularioInicioSesion />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={user && user.role === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
           <Route path="/worker" element={user && user.role === 'worker' ? <WorkerDashboard /> : <Navigate to="/login" />} />
