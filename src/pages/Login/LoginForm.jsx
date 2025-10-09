@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../context/AuthContext'; // Importa el contexto de autenticación
 import './LoginForm.css';
-
-// NOTE: The logic from 'form-utils.js' is partially implemented here.
-// For full functionality like animations and notifications, the original file is needed.
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -13,6 +12,9 @@ const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+
+    const navigate = useNavigate();
+    const { login } = useAuthContext();
 
     const validateEmail = (email) => {
         if (!email) return { isValid: false, message: 'Email is required' };
@@ -53,13 +55,15 @@ const LoginForm = () => {
 
         setIsLoading(true);
 
-        // Simulate API call
         try {
             await new Promise(resolve => setTimeout(resolve, 1500));
-            // Assuming login is successful
+            
+            // Simulación de rol
+            const role = email === 'admin@test.com' ? 'admin' : 'worker';
+            login(role);
+
             setIsSuccess(true);
         } catch (error) {
-            // Handle login error
             setPasswordError('Invalid credentials');
         } finally {
             setIsLoading(false);
@@ -68,14 +72,12 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            // Hide the form and show the success message
             const timer = setTimeout(() => {
-                // You can add a redirect here, e.g., using react-router-dom
-                console.log("Redirecting to dashboard...");
+                navigate('/'); // Redirige al dashboard
             }, 2000);
             return () => clearTimeout(timer);
         }
-    }, [isSuccess]);
+    }, [isSuccess, navigate]);
 
     return (
         <div className="login-container">

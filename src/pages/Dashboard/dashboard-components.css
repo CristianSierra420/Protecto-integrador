@@ -1,0 +1,63 @@
+@import '../../styles/variables.css';
+/* Shared styles for small dashboard components */
+.profile-card, .summary-card, .admin-summary, .filters-bar, .observation-form, .notification-toast{
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #0f1724;
+}
+.profile-card{
+  padding: 14px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fbfdff);
+  box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+}
+.profile-avatar{ width:64; height:64; border-radius:12px; }
+.profile-card h2{ margin:0 0 6px 0; font-size:1.1rem }
+.summary-card{ padding:12px; margin-top:12px; border-radius:10px; background:#fff; box-shadow: 0 6px 18px rgba(15,23,42,0.04);} 
+.summary-card h3{ margin:0 0 8px 0 }
+.admin-summary{ padding:12px; display:flex; gap:12px; align-items:center; }
+.admin-summary .summary-items{ display:flex; gap:12px; }
+.admin-summary .summary-item{ background:#f8fafc; padding:10px 12px; border-radius:8px; text-align:center; }
+.filters-bar{ display:flex; gap:8px; align-items:center; }
+.filters-bar input[type="text"], .filters-bar input[type="date"], .observation-form textarea{ padding:8px 10px; border-radius:8px; border:1px solid #e6eef7; }
+.filters-bar button{ padding:8px 12px; background:#0ea5a2; color:#fff; border-radius:8px; border:none; }
+.filters-bar .btn-ghost{ background:transparent; border:1px solid #e6eef7; color:#334155; padding:8px 10px; border-radius:8px; }
+.observation-form{ padding:12px; }
+.observation-form textarea{ width:100%; min-height:80px; resize:vertical; }
+.observation-form button{ margin-top:8px; padding:8px 12px; background:#2563eb; color:#fff; border:none; border-radius:8px; }
+.notification-toast{ position:fixed; right:18px; bottom:18px; z-index:1200; }
+
+.panel h3{ margin:0 0 6px 0 }
+.panel .muted{ margin-bottom:8px }
+.activities .btn{ margin-right:8px }
+
+/* Button utilities */
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; cursor:pointer; border:none; }
+.btn-primary{ background: linear-gradient(90deg,#0ea5a2,#0891b2); color:#fff; }
+.btn-secondary{ background: #f3f4f6; color:#111827; border:1px solid #e6eef7; }
+.btn-small{ padding:6px 8px; font-size:0.9rem; }
+.logout-btn{ background: linear-gradient(90deg,#ef4444,#f97316); color:#fff; border:none; padding:10px 14px; border-radius:999px; box-shadow: 0 8px 20px rgba(249,115,22,0.12); display:inline-flex; align-items:center; gap:8px }
+.logout-btn svg{ width:16px; height:16px }
+.logout-btn:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(249,115,22,0.18); }
+
+/* PDF button style */
+.btn-pdf{ background: linear-gradient(90deg,#ff7a18,#ffb347); color:#fff; border:none; padding:9px 14px; border-radius:10px; box-shadow: 0 8px 20px rgba(255,138,41,0.12); }
+.btn-pdf:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255,138,41,0.16); }
+
+/* Filters / Controls */
+.filters-bar{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.filters-bar input[type="text"], .filters-bar input[type="date"], .observation-form textarea{
+  padding:10px 12px; border-radius:10px; border:1px solid #e6eef7; background:#fff; box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+}
+.filters-bar .btn-control{ padding:10px 14px; background: linear-gradient(90deg,#0ea5a2,#0891b2); color:#fff; border-radius:10px; border:none; box-shadow: 0 8px 20px rgba(8,145,178,0.08); }
+.filters-bar .btn-control:hover{ transform: translateY(-2px); }
+
+/* Zebra rows + hover */
+.records-table tbody tr:nth-child(odd){ background: rgba(15,23,42,0.02); }
+.records-table tbody tr:hover{ background: rgba(15,23,42,0.04); transform: translateY(-1px); }
+
+/* Badges */
+.badge{ display:inline-block; padding:6px 8px; border-radius:999px; font-weight:600; font-size:0.85rem }
+.badge.success{ background: linear-gradient(90deg,#10b981,#059669); color:#fff }
+.badge.warn{ background: linear-gradient(90deg,#f59e0b,#f97316); color:#fff }
+
+

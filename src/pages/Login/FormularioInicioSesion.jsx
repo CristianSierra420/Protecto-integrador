@@ -13,7 +13,7 @@ const FormularioInicioSesion = () => {
 
     const validarCorreo = (correo) => {
         if (!correo) return { esValido: false, mensaje: 'El correo es requerido' };
-        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
         if (!emailRegex.test(correo)) return { esValido: false, mensaje: 'Formato de correo inválido' };
         return { esValido: true, mensaje: '' };
     };
@@ -54,7 +54,7 @@ const FormularioInicioSesion = () => {
             // Simulación de llamada API
             await new Promise(resolve => setTimeout(resolve, 1500));
             setExito(true);
-        } catch (error) {
+        } catch {
             setErrorContrasena('Credenciales inválidas');
         } finally {
             setCargando(false);

@@ -1,47 +1,53 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import { getUser } from './services/auth.service';
-import FormularioInicioSesion from './pages/Login/FormularioInicioSesion';
-import RegisterForm from './pages/Login/RegisterForm';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
+import { AuthContext, useAuthContext } from './context/AuthContext';
 
-const AdminDashboard = () => {
-  return <div>Admin Dashboard</div>;
+// Pages
+import Home from './pages/Dashboard/pages/Home';
+import LoginForm from './pages/Login/LoginForm';
+
+const AuthProvider = ({ children }) => {
+    const auth = useAuth();
+    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
 };
 
-const WorkerDashboard = () => {
-  return <div>Worker Dashboard</div>;
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+    const { user, loading } = useAuthContext();
+
+    if (loading) {
+        return <div>Cargando...</div>; // O un spinner
+    }
+
+    if (!user) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return children;
 };
 
-import { ToastContainer } from 'react-toastify';
-
+// App Router
 const App = () => {
-  const [user, setUser] = useState(getUser());
-
-  const handleLogin = (loggedInUser) => {
-    setUser(loggedInUser);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-  };
-
-  return (
-    <Router>
-      <Navbar onLogout={handleLogout} />
-      <main>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          {/* <Route path="/home" element={<Home />} /> */}
-          <Route path="/login" element={<FormularioInicioSesion onLogin={handleLogin} />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/admin" element={user && user.role === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />} />
-          <Route path="/worker" element={user && user.role === 'worker' ? <WorkerDashboard /> : <Navigate to="/login" />} />
-        </Routes>
-      </main>
-      <ToastContainer />
-    </Router>
-  );
+    return (
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    <Route path="/login" element={<LoginForm />} />
+                    <Route 
+                        path="/" 
+                        element={
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
+                        }
+                    />
+                    {/* Redirección por defecto si la ruta no existe */}
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </Router>
+        </AuthProvider>
+    );
 };
 
 export default App;

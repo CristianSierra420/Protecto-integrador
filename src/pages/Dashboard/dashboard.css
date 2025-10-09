@@ -1,0 +1,68 @@
+@import '../../styles/variables.css';
+/* Shared dashboard styles */
+.dashboard-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Page background and hero */
+.body, #root {
+  background: linear-gradient(180deg,#eef2ff 0%, #fff7ed 60%);
+}
+.page-template{
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.6) 25%, transparent 25%),
+                    linear-gradient(225deg, rgba(255,255,255,0.6) 25%, transparent 25%),
+                    linear-gradient(45deg, rgba(255,255,255,0.6) 25%, transparent 25%),
+                    linear-gradient(315deg, rgba(255,255,255,0.6) 25%, transparent 25%);
+  background-position: 10px 0, 10px 0, 0 0, 0 0;
+  background-size: 20px 20px;
+}
+.dashboard-hero{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background: linear-gradient(90deg,#ff7a18 0%, #ef4444 100%);
+  color: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 10px 30px rgba(239,68,68,0.12);
+}
+.dashboard-hero .title{ font-size:1.25rem; font-weight:700 }
+.dashboard-hero .subtitle{ color: rgba(255,255,255,0.8); font-size:0.95rem }
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:32px; /* increased spacing between grid items */
+}
+@media(min-width:992px){
+  .dashboard-grid{ grid-template-columns: 340px 1fr; }
+}
+.card-soft{
+  background: linear-gradient(180deg,#ffffff 0%, #fbfdff 100%);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  margin-bottom: 20px; /* add spacing below each card */
+}
+.panel{
+  padding: 14px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#f8fafc);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.04);
+  margin-bottom: 18px; /* spacing between panels */
+}
+
+.records-table table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.records-table th, .records-table td{
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef2f7;
+  text-align: left;
+}
+.records-table thead{ background: linear-gradient(90deg,#eef2ff,#f3f7ff); }
+.muted{ color: #6b7280; }

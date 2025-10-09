@@ -1,23 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import WorkerDashboard from '../WorkerDashboard';
+import AdminDashboard from '../AdminDashboard';
+import { useAuthContext } from '../../../context/AuthContext'; 
+import { addRecord } from '../../../services/record.service';
+import { getUser } from '../../../services/auth.service'; 
 
 const Home = () => {
+  const { user, loading } = useAuthContext();
+
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+
+  if (!user) {
+    return null;
+  }
+
   return (
-    <div className="container mt-5 text-center">
-      <h1 className="display-4 mb-4 text-primary">
-        Bienvenido al Sistema de Registro de Horarios
-      </h1>
-      <p className="lead mb-5">
-        Inicia sesión o regístrate para continuar.
-      </p>
-      <div>
-        <Link to="/login" className="btn btn-primary btn-lg mx-2">
-          Iniciar Sesión
-        </Link>
-        <Link to="/register" className="btn btn-secondary btn-lg mx-2">
-          Registrar Trabajador
-        </Link>
-      </div>
+    <div>
+      {user.role === 'admin' ? <AdminDashboard /> : <WorkerDashboard />}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
+import '../../pages/Dashboard/dashboard-components.css';
 
 const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }) => {
   const [timestamp, setTimestamp] = useState('');
@@ -20,7 +21,7 @@ const EditRecordModal = ({ show, onHide, onSave, currentTimestamp }) => {
       <Modal.Header closeButton>
         <Modal.Title>Editar Fecha y Hora</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="card-soft">
         <Form>
           <Form.Group controlId="timestamp">
             <Form.Label>Nueva Fecha y Hora</Form.Label>
